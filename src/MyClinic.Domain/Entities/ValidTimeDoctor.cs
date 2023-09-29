@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyClinic.Domain.Primitives;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace MyClinic.Domain.Entities
     /// <summary>
     /// زمان های معتبر پزشک بر اساس زمان کلینیک برای رزرو 
     /// </summary>
-    public class ValidTimeDoctor
+    public class ValidTimeDoctor : Entity
     {
         /// <summary>
         /// شناسه پزشک
@@ -30,5 +31,17 @@ namespace MyClinic.Domain.Entities
         /// پایان زمان ویزیت
         /// </summary>
         public TimeSpan EndTime { get; set; }
+
+        /// <summary>
+        /// موجودیت پزشک
+        /// </summary>
+        public Doctor Doctor { get; set; }
+
+        /// <summary>
+        /// موجودیت زمانهای معتبر
+        /// </summary>
+        public ValidTime ValidTime { get; set; }
+
+        public ICollection<Appointment> Appointments { get; set; }
     }
 }

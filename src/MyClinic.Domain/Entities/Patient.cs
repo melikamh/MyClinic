@@ -21,9 +21,8 @@ namespace MyClinic.Domain.Entities
 
         public NationalCode NationalCode { get; set; }
 
-        /// <summary>
-        /// قرار ملاقاتهای دکتر
-        /// </summary>
-        public List<Appointment> Appointments { get; set; }
+        
+        public ICollection<Appointment> Appointment { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MyClinic.Domain.Enums;
+using MyClinic.Domain.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace MyClinic.Domain.Entities
     /// <summary>
     /// زمانهای معتبر کلینیک برای رزور
     /// </summary>
-    public class ValidTime
+    public class ValidTime : Entity
     {
         /// <summary>
         /// روزهای هفته
@@ -26,5 +27,7 @@ namespace MyClinic.Domain.Entities
         /// زمان اتمام پایان رزرو
         /// </summary>
         public TimeSpan EndTime { get; set; }
+
+        public ICollection<ValidTimeDoctor> ValidTimeDoctors { get; set; }
     }
 }

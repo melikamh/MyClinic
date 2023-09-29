@@ -5,7 +5,7 @@ namespace MyClinic.Domain.Entities
     /// <summary>
     /// وقت ملاقات پزشک و بیمار
     /// </summary>
-    public class Appointment: AggregateRoot
+    public class Appointment: Entity
     {
         /// <summary>
         /// رفرنس به موجودیت ValidTimeDoctor
@@ -16,5 +16,8 @@ namespace MyClinic.Domain.Entities
         /// شناسه بیمار
         /// </summary>
         public int PatientID { get; set; }
+
+        public Patient Patient { get; set; }
+        public ValidTimeDoctor ValidTimeDoctor { get; set; }
     }
 }

@@ -21,10 +21,8 @@ namespace MyClinic.Domain.Entities
         /// </summary>
         public DoctorType Specialization { get; set; }
 
-        /// <summary>
-        /// زمانهای معتبر دکتر برای نوبت دهی
-        /// </summary>
-        public List<ValidTimeDoctor> ValidTimesDoctor { get; set; }
+        public ICollection<ValidTimeDoctor> ValidTimeDoctor { get; set; }
+
 
     }
 }
