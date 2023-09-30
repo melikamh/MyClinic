@@ -44,7 +44,7 @@ namespace MyClinic.Domain.ValueObjects
                     .Select(x => Convert.ToInt32(nationalCode.Substring(x, 1)) * (10 - x))
                     .Sum() % 11;
                 if (sum < 2 ? check == sum : check + sum == 11)
-                    new NationalCode(nationalCode);
+                    return new NationalCode(nationalCode);
             }
 
             return Result.Failure<NationalCode>(DomainErrors.NationalCode.InvalidFormat);

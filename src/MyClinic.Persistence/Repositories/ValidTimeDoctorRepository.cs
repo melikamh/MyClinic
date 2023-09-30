@@ -1,6 +1,7 @@
 ﻿
 
 using MyClinic.Domain.Entities;
+using MyClinic.Domain.Enums;
 using MyClinic.Domain.Repositories;
 using MyClinic.Persistence;
 
@@ -15,4 +16,9 @@ internal sealed class ValidTimeDoctorRepository : IValidTimeDoctorRepository
 
     public void Add(ValidTimeDoctor validTimeDoctor) =>
             _dbContext.Set<ValidTimeDoctor>().Add(validTimeDoctor);
+
+    public Task<List<ValidTimeDoctor>> DoctorAvailAble(int doctorId, DaysOfWeek Day, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
 }

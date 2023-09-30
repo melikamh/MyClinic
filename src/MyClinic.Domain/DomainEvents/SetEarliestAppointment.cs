@@ -1,4 +1,5 @@
-﻿using MyClinic.Domain.Enums;
+﻿using MediatR;
+using MyClinic.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace MyClinic.Domain.DomainEvents
 {
-    public sealed record SetEarliestAppointment(int DoctorId, int PationId, DaysOfWeek Day) : DomainEvent();
+    public sealed record SetEarliestAppointment(int DoctorId, int PationId, DaysOfWeek Day) : IRequest<Unit>;
 
 }

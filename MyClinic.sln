@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyClinic.Tests", "test\MyCl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyClinic.AcceptanceTests", "test\MyClinic.AcceptanceTests\MyClinic.AcceptanceTests.csproj", "{94211293-EA4A-4FEA-B055-246458EB686A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyClinic.Domain.Tests", "test\MyClinic.Domain.Tests\MyClinic.Domain.Tests.csproj", "{DE193FE7-A368-4FCC-9192-0C7946E7AC18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{94211293-EA4A-4FEA-B055-246458EB686A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94211293-EA4A-4FEA-B055-246458EB686A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94211293-EA4A-4FEA-B055-246458EB686A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE193FE7-A368-4FCC-9192-0C7946E7AC18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE193FE7-A368-4FCC-9192-0C7946E7AC18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE193FE7-A368-4FCC-9192-0C7946E7AC18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE193FE7-A368-4FCC-9192-0C7946E7AC18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{6BC67B18-13E8-4290-8089-D9AC988DD5DC} = {6C343BBB-2F44-451F-981C-637C9BC6E3AF}
 		{22C159AB-A9C0-4AE2-8276-CA7FFAB23344} = {52C388BF-E9ED-459F-BAB3-690EA4FFBE92}
 		{94211293-EA4A-4FEA-B055-246458EB686A} = {52C388BF-E9ED-459F-BAB3-690EA4FFBE92}
+		{DE193FE7-A368-4FCC-9192-0C7946E7AC18} = {52C388BF-E9ED-459F-BAB3-690EA4FFBE92}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2D784111-6BCA-4D3A-913D-27B5D8E40FB2}
