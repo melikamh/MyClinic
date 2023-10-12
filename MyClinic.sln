@@ -9,19 +9,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyClinic.Api", "src\MyClini
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyClinic.Domain", "src\MyClinic.Domain\MyClinic.Domain.csproj", "{34593F91-0D9E-43C0-A61B-E3914168FD76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyClinic.Application", "src\MyClinic.Application\MyClinic.Application.csproj", "{0FE41ACD-2006-4FA0-93A4-FB418927665A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyClinic.Application", "src\MyClinic.Application\MyClinic.Application.csproj", "{0FE41ACD-2006-4FA0-93A4-FB418927665A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyClinic.Infrastructure", "src\MyClinic.Infrastructure\MyClinic.Infrastructure.csproj", "{6328B42A-B11C-48F6-ACF0-FE599548B994}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyClinic.Infrastructure", "src\MyClinic.Infrastructure\MyClinic.Infrastructure.csproj", "{6328B42A-B11C-48F6-ACF0-FE599548B994}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyClinic.Persistence", "src\MyClinic.Persistence\MyClinic.Persistence.csproj", "{6BC67B18-13E8-4290-8089-D9AC988DD5DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyClinic.Persistence", "src\MyClinic.Persistence\MyClinic.Persistence.csproj", "{6BC67B18-13E8-4290-8089-D9AC988DD5DC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{52C388BF-E9ED-459F-BAB3-690EA4FFBE92}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyClinic.Tests", "test\MyClinic.Tests\MyClinic.Tests.csproj", "{22C159AB-A9C0-4AE2-8276-CA7FFAB23344}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyClinic.Application.IntegrationTests", "test\MyClinic.Tests\MyClinic.Application.IntegrationTests.csproj", "{22C159AB-A9C0-4AE2-8276-CA7FFAB23344}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyClinic.AcceptanceTests", "test\MyClinic.AcceptanceTests\MyClinic.AcceptanceTests.csproj", "{94211293-EA4A-4FEA-B055-246458EB686A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyClinic.Domain.Tests", "test\MyClinic.Domain.Tests\MyClinic.Domain.Tests.csproj", "{DE193FE7-A368-4FCC-9192-0C7946E7AC18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyClinic.Domain.Tests", "test\MyClinic.Domain.Tests\MyClinic.Domain.Tests.csproj", "{DE193FE7-A368-4FCC-9192-0C7946E7AC18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
