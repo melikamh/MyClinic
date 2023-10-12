@@ -12,6 +12,21 @@ namespace MyClinic.Domain.Entities
     /// </summary>
     public class ValidTimeDoctor : Entity
     {
+
+        private readonly List<ValidTime> _validTimes = new();
+
+        public ValidTimeDoctor()
+        {
+        }
+
+        private ValidTimeDoctor(int id, Doctor doctor, ValidTime validTime, TimeSpan startTime, TimeSpan endTime) : base(id)
+        {
+            DoctorId = doctor.Id;
+            ValidTimeId = validTime.Id;
+            StartTime=startTime; 
+            EndTime=endTime;
+        }
+
         /// <summary>
         /// شناسه پزشک
         /// </summary>
@@ -33,15 +48,11 @@ namespace MyClinic.Domain.Entities
         public TimeSpan EndTime { get; set; }
 
         /// <summary>
-        /// موجودیت پزشک
+        /// تاریخ ویزیت
         /// </summary>
-        public Doctor Doctor { get; set; }
+        public DateTime Date { get; set; }
+        public Doctor Doctor { get; set; } 
 
-        /// <summary>
-        /// موجودیت زمانهای معتبر
-        /// </summary>
-        public ValidTime ValidTime { get; set; }
-
-        public ICollection<Appointment> Appointments { get; set; }
+        public IReadOnlyCollection<ValidTime> ValidTimes => _validTimes;
     }
 }

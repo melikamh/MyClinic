@@ -5,6 +5,12 @@ namespace MyClinic.Domain.Entities
 {
     public class Patient :Entity
     {
+        private Patient(int id , FirstName firstName, LastName lastName, NationalCode nationalCode) : base(id)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            NationalCode = nationalCode;
+        }
         /// <summary>
         /// نام
         /// </summary>
@@ -20,9 +26,6 @@ namespace MyClinic.Domain.Entities
         /// </summary>
 
         public NationalCode NationalCode { get; set; }
-
-        
-        public ICollection<Appointment> Appointment { get; set; }
 
     }
 }

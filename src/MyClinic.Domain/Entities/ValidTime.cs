@@ -13,6 +13,13 @@ namespace MyClinic.Domain.Entities
     /// </summary>
     public class ValidTime : Entity
     {
+        private ValidTime(int id, DaysOfWeek dayOfWeek, TimeSpan startTime, TimeSpan endTime) : base(id)
+        {
+            DayOfWeek = dayOfWeek;
+            StartTime = startTime;
+            EndTime = endTime;
+        }
+
         /// <summary>
         /// روزهای هفته
         /// </summary>
@@ -28,6 +35,5 @@ namespace MyClinic.Domain.Entities
         /// </summary>
         public TimeSpan EndTime { get; set; }
 
-        public ICollection<ValidTimeDoctor> ValidTimeDoctors { get; set; }
     }
 }
