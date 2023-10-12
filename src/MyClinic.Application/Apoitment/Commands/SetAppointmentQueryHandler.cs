@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace MyClinic.Application.Apoitment.Commands
 {
-    public sealed class SetAppointmentQueryHandler : IRequestHandler<SetAppointment, Result<Appointment>>
+    publ sealed class SetAppointmentQueryHandler : IRequestHandler<SetAppointment, Result<Appointment>>
     {
         private readonly IAppointmentReserverByTime _appointmentReserver;
         private readonly IAppointmentRepository _appointmentRepository;
