@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MyClinic.Persistence.Specifications
 {
-    internal class GetReservedAppointmentSpecification : Specification<Appointment>
+    internal class GetReservedAppointmentSpecification : Specification<ValidTimeDoctor>
     {
         /// <summary>
         /// لیست نوبتهای رزرو شده برای یک پزشک در یک روز
@@ -17,10 +17,10 @@ namespace MyClinic.Persistence.Specifications
         /// <param name="patientId"></param>
         /// <param name="date"></param>
         public GetReservedAppointmentSpecification(int doctorId, DateTime date)
-           : base(appointment => appointment.ValidTimeDoctors.Any(p => p.Date.Date == date.Date) &&
-                               appointment.ValidTimeDoctors.Any(p => p.DoctorId == doctorId))
+           : base(validTimeDoctor => validTimeDoctor.Date.Date == date.Date &&
+                               validTimeDoctor.DoctorId == doctorId)
         {
-            AddInclude(appointment => appointment.ValidTimeDoctors);
+            AddInclude(validTimeDoctor => validTimeDoctor.Appointment);
 
         }
 

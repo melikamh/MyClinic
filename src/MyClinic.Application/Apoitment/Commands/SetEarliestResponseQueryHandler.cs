@@ -41,15 +41,16 @@ namespace MyClinic.Application.Apoitment.Commands
 
             if (doctorTimes.Count == 0)
                 return Result.Failure<Appointment>(
-                    DomainErrors.ValidTimeDoctor.NotFound(request.date.Date.ToString()));
+                    DomainErrors.ReserveTimeDoctor.NotFound(request.date.Date.ToString()));
             // لیست رزرو شده توسط بیمار
-            var pationtList = await _appointmentRepository.GetPatientAppointmentByDate(request.pationId, request.date);
+            var reservedDoctorTime = await _validTimeDoctorRepository.GetPatientAppointmentByDate(request.pationId, request.date);
+            var pationtList = reservedDoctorTime.SelectMany(p => p.Appointment).ToList();
+
             if (pationtList.Count > AppointmentSettings.MaxAppointmentsPerPatientPerDay)
                 return Result.Failure<Appointment>(
                     DomainErrors.ValidAppointment.Notallowed(request.date.Date.ToString()));
 
-            var allAppointment = await _appointmentRepository.GetReservedAppointment(request.doctorId, request.date);
-            var reserve = _appointmentReserver.CheckReservation(doctorTimes, allAppointment, request.pationId);
+            var reserve = _appointmentReserver.CheckReservation(doctorTimes, request.pationId);
 
             var appointment = Appointment.Create(
                 0,

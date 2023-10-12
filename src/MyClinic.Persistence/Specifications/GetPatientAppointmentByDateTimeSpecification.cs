@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace MyClinic.Persistence.Specifications
 {
-    internal class GetPatientAppointmentByDateTimeSpecification : Specification<Appointment>
+    internal class GetPatientAppointmentByDateTimeSpecification : Specification<ValidTimeDoctor>
     {
         /// <summary>
         /// لیست نوبت های بیمار در یک روز
         /// </summary>
         /// <param name="patientId"></param>
         /// <param name="date"></param>
-        public GetPatientAppointmentByDateTimeSpecification(int patientId, DateTime date,TimeSpan startTime)
-           : base(appointment => appointment.ValidTimeDoctors.Any(p => p.Date.Date == date.Date) &&
-                  appointment.ValidTimeDoctors.Any(p => p.StartTime == startTime) &&
-                               appointment.PatientId == patientId)
+        public GetPatientAppointmentByDateTimeSpecification(int patientId, DateTime date, TimeSpan startTime)
+           : base(validTimeDoctor => validTimeDoctor.Appointment.Any(p => p.PatientId == patientId) &&
+                  validTimeDoctor.StartTime == startTime &&
+                               validTimeDoctor.Date.Date == date.Date)
         {
-            AddInclude(appointment => appointment.ValidTimeDoctors);
+            AddInclude(validTimeDoctor => validTimeDoctor.Appointment);
 
         }
 

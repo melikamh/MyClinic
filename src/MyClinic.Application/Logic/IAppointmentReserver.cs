@@ -14,7 +14,7 @@ namespace MyClinic.Application.Logic
         /// <param name="allList"></param>
         /// <param name="reservedList"></param>
         /// <returns></returns>
-        ValidTimeDoctor CheckReservation(List<ValidTimeDoctor> allList, List<Appointment> reservedList, int patientId);
+        ValidTimeDoctor CheckReservation(List<ValidTimeDoctor> allList, int patientId);
 
 
     }

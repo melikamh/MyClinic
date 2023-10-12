@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 
 namespace MyClinic.Application.Logic
 {
-    public class AppointmentReserverByTime : IAppointmentReserverByTime
+    public class AppointmentReserverByTime : Setting, IAppointmentReserverByTime
     {
 
         public ValidTimeDoctor? CheckReservation(ValidTimeDoctor validTimeDoctor, List<Appointment> reservedList, TimeSpan time)
         {
-            var reservedDoctorList = reservedList.SelectMany(p => p.ValidTimeDoctors).ToList();
             if (!reservedList.Any(p => p.ValidTimeDoctorId == validTimeDoctor.Id))
                 return validTimeDoctor;
 
@@ -54,27 +53,6 @@ namespace MyClinic.Application.Logic
             return reservedList.GroupBy(p => p.ValidTimeDoctorId).ToDictionary(group => group.Key, group => group.Count());
         }
 
-        /// <summary>
-        /// حداکثر همپوشانی هر تخصص
-        /// </summary>
-        /// <param name="doctorType"></param>
-        /// <returns></returns>
-        private static int GetMaxAllowedOverLabAppointments(DoctorType? doctorType)
-        {
-
-            var maxOverLabAppointments = new Dictionary<DoctorType, int>
-                {
-                    { DoctorType.General, AppointmentSettings.MaxGeneralAppointmentsPerDay },
-                    { DoctorType.Specialist, AppointmentSettings.MaxSpecialistAppointmentsPerDay },
-                    // Add new DoctorType values here
-                };
-
-            if (maxOverLabAppointments.TryGetValue(doctorType ?? DoctorType.General, out var maxAllowedAppointments))
-            {
-                return maxAllowedAppointments;
-            }
-
-            return 0;
-        }
+       
     }
 }

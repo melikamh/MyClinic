@@ -9,20 +9,21 @@ using System.Threading.Tasks;
 
 namespace MyClinic.Application.Logic
 {
-    public class AppointmentReserver : IAppointmentReserver
+    public class AppointmentReserver :Setting, IAppointmentReserver
     {
 
-        public ValidTimeDoctor? CheckReservation(List<ValidTimeDoctor> allList, List<Appointment> reservedList,int patientId)
+        public ValidTimeDoctor? CheckReservation(List<ValidTimeDoctor> doctorTimes, int patientId)
         {
-            var reservDoctorList = reservedList.SelectMany(p => p.ValidTimeDoctors).ToList();
-            var freeTime = allList.Except(reservDoctorList);
+            var reservedList = doctorTimes.SelectMany(p => p.Appointment).ToList();
+            var reserverdDoctorTime = doctorTimes.Where(p => reservedList.Where(x => x.PatientId == patientId).Select(x => x.ValidTimeDoctorId).ToList().Contains(p.Id)).ToList();
+            var freeTime = doctorTimes.Except(reserverdDoctorTime);
 
             if (freeTime.Count() >= 1)
             {
                 return freeTime.FirstOrDefault();
             }
 
-            return GetfirstOverLabTime(allList, reservDoctorList, reservedList);
+            return GetfirstOverLabTime(reserverdDoctorTime, reservedList);
         }
 
         /// <summary>
@@ -32,7 +33,7 @@ namespace MyClinic.Application.Logic
         /// <param name="reservDoctorList"></param>
         /// <param name="reservedList"></param>
         /// <returns></returns>
-        private static ValidTimeDoctor? GetfirstOverLabTime(List<ValidTimeDoctor> allList, List<ValidTimeDoctor> reservDoctorList, List<Appointment> reservedList)
+        private static ValidTimeDoctor? GetfirstOverLabTime(List<ValidTimeDoctor> reservDoctorList, List<Appointment> reservedList)
         {
             var countReservationList = CountReservation(reservedList);
             var result = new ValidTimeDoctor();
@@ -62,27 +63,5 @@ namespace MyClinic.Application.Logic
             return reservedList.GroupBy(p => p.ValidTimeDoctorId).ToDictionary(group => group.Key, group => group.Count());
         }
 
-        /// <summary>
-        /// حداکثر همپوشانی هر تخصص
-        /// </summary>
-        /// <param name="doctorType"></param>
-        /// <returns></returns>
-        private static int GetMaxAllowedOverLabAppointments(DoctorType? doctorType)
-        {
-
-            var maxOverLabAppointments = new Dictionary<DoctorType, int>
-                {
-                    { DoctorType.General, AppointmentSettings.MaxGeneralAppointmentsPerDay },
-                    { DoctorType.Specialist, AppointmentSettings.MaxSpecialistAppointmentsPerDay },
-                    // Add new DoctorType values here
-                };
-
-            if (maxOverLabAppointments.TryGetValue(doctorType ?? DoctorType.General, out var maxAllowedAppointments))
-            {
-                return maxAllowedAppointments;
-            }
-
-            return 0;
-        }
     }
 }

@@ -15,7 +15,6 @@ namespace MyClinic.Persistence.Specifications
            : base(validTimeDoctor => validTimeDoctor.Date.Date == date.Date &&
                                validTimeDoctor.DoctorId == doctorId)
         {
-            AddInclude(validTime => validTime.ValidTimes);
             AddInclude(validTime => validTime.Doctor);
             
         }

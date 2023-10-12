@@ -38,28 +38,29 @@ namespace MyClinic.Application.Apoitment.Commands
         {
             //نوبت های تعریف شده برای پزشک در تاریخ مشخص 
             var doctorTimes = await _validTimeDoctorRepository.GetAvailableDoctorByDate(request.doctorId, request.date);
-            
+
             if (doctorTimes.Count == 0 || !doctorTimes.Any(p => p.StartTime == request.StartTime))
                 return Result.Failure<Appointment>(
-                    DomainErrors.ValidTimeDoctor.NotFound(request.date.Date.ToString()));
+                    DomainErrors.ReserveTimeDoctor.NotFound(request.date.Date.ToString()));
             // لیست رزرو شده توسط بیمار
-            var pationtList = await _appointmentRepository.GetPatientAppointmentByDate(request.pationId, request.date);
+            var reservedDoctorTime = await _validTimeDoctorRepository.GetPatientAppointmentByDate(request.pationId, request.date);
+            var pationtList = reservedDoctorTime.SelectMany(p => p.Appointment).ToList();
             if (pationtList.Count > AppointmentSettings.MaxAppointmentsPerPatientPerDay)
                 return Result.Failure<Appointment>(
                     DomainErrors.ValidAppointment.Notallowed(request.date.Date.ToString()));
-            
+
             // بررسی رزر نوبت تکراری
-            if (pationtList.Any(p => p.ValidTimeDoctors.Any(p => p.StartTime == request.StartTime)))
+            if (reservedDoctorTime.Any(p=> p.StartTime == request.StartTime))
                 return Result.Failure<Appointment>(
                    DomainErrors.ValidAppointment.ExistBefor);
 
             var doctorTime = doctorTimes.FirstOrDefault(p => p.StartTime == request.StartTime);
-            var allAppointment = await _appointmentRepository.GetReservedAppointment(request.doctorId, request.date);
+            var allAppointment = doctorTimes.SelectMany(p=>p.Appointment).ToList();
             var reserve = _appointmentReserver.CheckReservation(doctorTime, allAppointment, request.StartTime);
 
             if (reserve == null)
                 return Result.Failure<Appointment>(
-                   DomainErrors.ValidTimeDoctor.NotFound(request.date.Date.ToString()));
+                   DomainErrors.ReserveTimeDoctor.NotFound(request.date.Date.ToString()));
 
             var appointment = Appointment.Create(
                 0,

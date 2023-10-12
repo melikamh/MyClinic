@@ -24,6 +24,13 @@ public sealed class ValidTimeDoctorRepository : IValidTimeDoctorRepository
     public async Task<List<ValidTimeDoctor>> GetAvailableDoctorByDate(int doctorId, DateTime date, CancellationToken cancellationToken = default)
     => await ApplySpecification(new GetAvailableDoctorsByDateSpecification(doctorId, date)).ToListAsync(cancellationToken);
 
+    public async Task<List<ValidTimeDoctor>> GetPatientAppointmentByDate(int patientId, DateTime date, CancellationToken cancellationToken = default)
+  => await ApplySpecification(new GetPatientAppointmentByDateSpecification(patientId, date)).ToListAsync(cancellationToken);
+
+
+    public async Task<List<ValidTimeDoctor>> GetReservedAppointment(int doctorId, DateTime date, CancellationToken cancellationToken = default)
+       => await ApplySpecification(new GetReservedAppointmentSpecification(doctorId, date)).ToListAsync(cancellationToken);
+
 
 
     private IQueryable<ValidTimeDoctor> ApplySpecification(
@@ -33,6 +40,4 @@ public sealed class ValidTimeDoctorRepository : IValidTimeDoctorRepository
             _dbContext.Set<ValidTimeDoctor>(),
             specification);
     }
-
-
 }

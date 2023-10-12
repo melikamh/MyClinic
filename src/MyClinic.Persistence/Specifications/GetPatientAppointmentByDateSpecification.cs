@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MyClinic.Domain.Errors.DomainErrors;
 
 namespace MyClinic.Persistence.Specifications
 {
-    internal class GetPatientAppointmentByDateSpecification : Specification<Appointment>
+    internal class GetPatientAppointmentByDateSpecification : Specification<ValidTimeDoctor>
     {
         /// <summary>
         /// لیست نوبت های بیمار در یک روز
@@ -17,10 +18,10 @@ namespace MyClinic.Persistence.Specifications
         /// <param name="patientId"></param>
         /// <param name="date"></param>
         public GetPatientAppointmentByDateSpecification(int patientId, DateTime date)
-           : base(appointment => appointment.ValidTimeDoctors.Any(p => p.Date.Date == date.Date) &&
-                               appointment.PatientId == patientId)
+           : base(validTimeDoctor => validTimeDoctor.Appointment.Any(p => p.PatientId == patientId) &&
+                               validTimeDoctor.Date.Date == date.Date)
         {
-            AddInclude(appointment => appointment.ValidTimeDoctors);
+            AddInclude(validTimeDoctor => validTimeDoctor.Appointment);
 
         }
 
