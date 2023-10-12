@@ -1,5 +1,4 @@
-﻿using Event_Planner.Application.Abstractions.Messaging;
-using MyClinic.Domain.Shared;
+﻿using MyClinic.Domain.Shared;
 using MediatR;
 
 
