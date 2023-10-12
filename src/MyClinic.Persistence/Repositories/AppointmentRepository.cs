@@ -1,10 +1,10 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MyClinic.Domain.Entities;
+using MyClinic.Domain.Enums;
 using MyClinic.Domain.Repositories;
 using MyClinic.Persistence;
+using MyClinic.Persistence.Specifications;
 using System.Linq.Expressions;
 
 namespace MyClinic.Persistence.Repositories
@@ -20,9 +20,17 @@ namespace MyClinic.Persistence.Repositories
         public void Add(Appointment appointment) =>
             _dbContext.Set<Appointment>().Add(appointment);
 
-        public IEnumerable<Appointment> FindBy(Expression<Func<Appointment, bool>> predicate)
+        public async Task<List<Appointment>> GetPatientAppointmentByDate(int patientId, DateTime date, CancellationToken cancellationToken = default)
+    => await ApplySpecification(new GetPatientAppointmentByDateSpecification(patientId, date)).ToListAsync(cancellationToken);
+        public async Task<List<Appointment>> GetReservedAppointment(int doctorId, DateTime date, CancellationToken cancellationToken = default)
+           => await ApplySpecification(new GetReservedAppointmentSpecification(doctorId, date)).ToListAsync(cancellationToken);
+
+        private IQueryable<Appointment> ApplySpecification(
+             Specification<Appointment> specification)
         {
-            return _dbContext.Set<Appointment>().Where(predicate);
+            return SpecificationEvaluator.GetQuery(
+                _dbContext.Set<Appointment>(),
+                specification);
         }
     }
 }

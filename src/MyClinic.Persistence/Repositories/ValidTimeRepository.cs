@@ -13,6 +13,9 @@ public sealed class ValidTimeRepository : IValidTimeRepository
     public ValidTimeRepository(MyClinicDbContext dbContext) =>
         _dbContext = dbContext;
 
+
     public void Add(ValidTime validTime) =>
             _dbContext.Set<ValidTime>().Add(validTime);
+
+
 }

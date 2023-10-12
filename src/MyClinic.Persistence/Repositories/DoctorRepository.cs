@@ -11,6 +11,6 @@ internal sealed class DoctorRepository : IDoctorRepository
     public DoctorRepository(MyClinicDbContext dbContext) =>
         _dbContext = dbContext;
 
-    public void Add(Doctor doctor) =>
-            _dbContext.Set<Doctor>().Add(doctor);
+       public void Add(Doctor doctor) =>
+                _dbContext.Set<Doctor>().Add(doctor);
 }

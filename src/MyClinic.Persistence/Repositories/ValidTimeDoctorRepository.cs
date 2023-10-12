@@ -1,9 +1,13 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
 using MyClinic.Domain.Entities;
 using MyClinic.Domain.Enums;
 using MyClinic.Domain.Repositories;
 using MyClinic.Persistence;
+using MyClinic.Domain.Shared;
+using System.Threading;
+using MyClinic.Persistence.Specifications;
 
 namespace MyClinic.Persistence.Repositories;
 
@@ -17,8 +21,18 @@ internal sealed class ValidTimeDoctorRepository : IValidTimeDoctorRepository
     public void Add(ValidTimeDoctor validTimeDoctor) =>
             _dbContext.Set<ValidTimeDoctor>().Add(validTimeDoctor);
 
-    public Task<List<ValidTimeDoctor>> DoctorAvailAble(int doctorId, DaysOfWeek Day, CancellationToken cancellationToken = default)
+    public async Task<List<ValidTimeDoctor>> GetAvailableDoctorByDate(int doctorId, DateTime date, CancellationToken cancellationToken = default)
+    => await ApplySpecification(new GetAvailableDoctorsByDateSpecification(doctorId, date)).ToListAsync(cancellationToken);
+    
+    
+
+    private IQueryable<ValidTimeDoctor> ApplySpecification(
+         Specification<ValidTimeDoctor> specification)
     {
-        throw new NotImplementedException();
+        return SpecificationEvaluator.GetQuery(
+            _dbContext.Set<ValidTimeDoctor>(),
+            specification);
     }
+
+
 }
