@@ -13,7 +13,7 @@ namespace MyClinic.Domain.Entities
         private Appointment(int id, int validTimeDoctorId, int patientId) : base(id)
         {
             ValidTimeDoctorId = validTimeDoctorId;
-            PatientID = patientId;
+            PatientId = patientId;
         }
 
         private Appointment()
@@ -26,7 +26,7 @@ namespace MyClinic.Domain.Entities
         /// <summary>
         /// شناسه بیمار
         /// </summary>
-        public int PatientID { get; set; }
+        public int PatientId { get; set; }
         public IReadOnlyCollection<ValidTimeDoctor> ValidTimeDoctors => _validTimeDoctors;
 
         public static Appointment Create(

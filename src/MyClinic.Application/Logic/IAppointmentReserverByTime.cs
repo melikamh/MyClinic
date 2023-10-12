@@ -6,7 +6,7 @@ namespace MyClinic.Application.Logic
     /// <summary>
     /// پیاده سازی منطق اولین نوبت خالی
     /// </summary>
-    public interface IAppointmentReserver
+    public interface IAppointmentReserverByTime
     {
         /// <summary>
         /// بررسی نوبت رزرو خالی 
@@ -14,7 +14,7 @@ namespace MyClinic.Application.Logic
         /// <param name="allList"></param>
         /// <param name="reservedList"></param>
         /// <returns></returns>
-        ValidTimeDoctor CheckReservation(List<ValidTimeDoctor> allList, List<Appointment> reservedList, int patientId);
+        ValidTimeDoctor CheckReservation(ValidTimeDoctor allList, List<Appointment> reservedList, TimeSpan time);
 
 
     }

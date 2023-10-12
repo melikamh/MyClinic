@@ -9,7 +9,7 @@ namespace MyClinic.Domain.Errors
 {
     public static class DomainErrors
     {
-        
+
         public static class NationalCode
         {
             public static readonly Error Empty = new(
@@ -52,9 +52,12 @@ namespace MyClinic.Domain.Errors
 
         public static class ValidAppointment
         {
-            public static readonly Func<string, Error> NotFound = date => new Error(
+            public static readonly Func<string, Error> Notallowed = date => new Error(
                     "ValidAppointment.Notallowed",
                     $"تعداد مجاز نوبت در تاریخ {date} به پایان رسیده است.");
+            public static readonly Error ExistBefor = new(
+                    "ValidAppointment.Notallowed",
+                    $"این نوبت رزرو قبلا توسط شما انتخاب شده است.");
         }
     }
 }

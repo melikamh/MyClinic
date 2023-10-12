@@ -9,47 +9,39 @@ using System.Threading.Tasks;
 
 namespace MyClinic.Application.Logic
 {
-    public class AppointmentReserver : IAppointmentReserver
+    public class AppointmentReserverByTime : IAppointmentReserverByTime
     {
 
-        public ValidTimeDoctor? CheckReservation(List<ValidTimeDoctor> allList, List<Appointment> reservedList,int patientId)
+        public ValidTimeDoctor? CheckReservation(ValidTimeDoctor validTimeDoctor, List<Appointment> reservedList, TimeSpan time)
         {
-            var reservDoctorList = reservedList.SelectMany(p => p.ValidTimeDoctors).ToList();
-            var freeTime = allList.Except(reservDoctorList);
+            var reservedDoctorList = reservedList.SelectMany(p => p.ValidTimeDoctors).ToList();
+            if (!reservedList.Any(p => p.ValidTimeDoctorId == validTimeDoctor.Id))
+                return validTimeDoctor;
 
-            if (freeTime.Count() >= 1)
-            {
-                return freeTime.FirstOrDefault();
-            }
-
-            return GetfirstOverLabTime(allList, reservDoctorList, reservedList);
+            return GetOverLabReserve(validTimeDoctor, reservedList);
         }
 
         /// <summary>
-        /// اولین نوبت قابل رزرو در همپوشانی
+        ///  نوبت قابل رزرو در همپوشانی
         /// </summary>
         /// <param name="allList"></param>
         /// <param name="reservDoctorList"></param>
         /// <param name="reservedList"></param>
         /// <returns></returns>
-        private static ValidTimeDoctor? GetfirstOverLabTime(List<ValidTimeDoctor> allList, List<ValidTimeDoctor> reservDoctorList, List<Appointment> reservedList)
+        private static ValidTimeDoctor? GetOverLabReserve(ValidTimeDoctor validTimeDoctor, List<Appointment> reservedList)
         {
             var countReservationList = CountReservation(reservedList);
             var result = new ValidTimeDoctor();
-            var doctorSpecialization = reservDoctorList.FirstOrDefault()?.Doctor.Specialization;
+            var doctorSpecialization = validTimeDoctor.Doctor.Specialization;
             var OverLabNumber = GetMaxAllowedOverLabAppointments(doctorSpecialization);
 
-            if (countReservationList.Count(p => p.Value >= AppointmentSettings.MaxOverLabAppoint) == OverLabNumber)
+            if (countReservationList.FirstOrDefault(p=>p.Key==validTimeDoctor.Id).Value == OverLabNumber)
             {
                 return result;
             }
 
-            // اعمال عدم همپوشانی قرار ملاقات های یک بیمار
-            // اعمال همپوشانی مجاز برای پزشک مربوطه با توجه به تخصص
-            return reservDoctorList?.FirstOrDefault(p =>
-                         p.ValidTimeId == countReservationList.OrderBy(x => x.Key)
-                        .Where(z => !reservedList.Select(x => x.ValidTimeDoctorId).Contains(z.Key))
-                        .FirstOrDefault(a => a.Value == AppointmentSettings.MinOverLabAppoint).Key);
+
+            return validTimeDoctor;
         }
 
         /// <summary>

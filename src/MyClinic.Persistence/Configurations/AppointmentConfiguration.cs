@@ -17,7 +17,7 @@ namespace MyClinic.Persistence.Configurations
             builder
                 .HasOne<Patient>()
                 .WithMany()
-                .HasForeignKey(x => x.PatientID)
+                .HasForeignKey(x => x.PatientId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder

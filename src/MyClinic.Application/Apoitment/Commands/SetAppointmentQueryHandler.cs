@@ -17,14 +17,14 @@ using System.Threading.Tasks;
 
 namespace MyClinic.Application.Apoitment.Commands
 {
-    internal sealed class SetEarliestResponseQueryHandler : IRequestHandler<SetEarliestAppointment, Result<Appointment>>
+    internal sealed class SetAppointmentQueryHandler : IRequestHandler<SetAppointment, Result<Appointment>>
     {
-        private readonly IAppointmentReserver _appointmentReserver;
+        private readonly IAppointmentReserverByTime _appointmentReserver;
         private readonly IAppointmentRepository _appointmentRepository;
         private readonly IValidTimeDoctorRepository _validTimeDoctorRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public SetEarliestResponseQueryHandler(IAppointmentRepository appointmentRepository,
-            IAppointmentReserver appointmentReserver,
+        public SetAppointmentQueryHandler(IAppointmentRepository appointmentRepository,
+            IAppointmentReserverByTime appointmentReserver,
             IValidTimeDoctorRepository validTimeDoctorRepository,
             IUnitOfWork unitOfWork)
         {
@@ -34,12 +34,12 @@ namespace MyClinic.Application.Apoitment.Commands
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Result<Appointment>> Handle(SetEarliestAppointment request, CancellationToken cancellationToken)
+        public async Task<Result<Appointment>> Handle(SetAppointment request, CancellationToken cancellationToken)
         {
             //نوبت های تعریف شده برای پزشک در تاریخ مشخص 
             var doctorTimes = await _validTimeDoctorRepository.GetAvailableDoctorByDate(request.doctorId, request.date);
-
-            if (doctorTimes.Count == 0)
+            
+            if (doctorTimes.Count == 0 || !doctorTimes.Any(p => p.StartTime == request.StartTime))
                 return Result.Failure<Appointment>(
                     DomainErrors.ValidTimeDoctor.NotFound(request.date.Date.ToString()));
             // لیست رزرو شده توسط بیمار
@@ -47,9 +47,19 @@ namespace MyClinic.Application.Apoitment.Commands
             if (pationtList.Count > AppointmentSettings.MaxAppointmentsPerPatientPerDay)
                 return Result.Failure<Appointment>(
                     DomainErrors.ValidAppointment.Notallowed(request.date.Date.ToString()));
+            
+            // بررسی رزر نوبت تکراری
+            if (pationtList.Any(p => p.ValidTimeDoctors.Any(p => p.StartTime == request.StartTime)))
+                return Result.Failure<Appointment>(
+                   DomainErrors.ValidAppointment.ExistBefor);
 
+            var doctorTime = doctorTimes.FirstOrDefault(p => p.StartTime == request.StartTime);
             var allAppointment = await _appointmentRepository.GetReservedAppointment(request.doctorId, request.date);
-            var reserve = _appointmentReserver.CheckReservation(doctorTimes, allAppointment, request.pationId);
+            var reserve = _appointmentReserver.CheckReservation(doctorTime, allAppointment, request.StartTime);
+
+            if (reserve == null)
+                return Result.Failure<Appointment>(
+                   DomainErrors.ValidTimeDoctor.NotFound(request.date.Date.ToString()));
 
             var appointment = Appointment.Create(
                 0,

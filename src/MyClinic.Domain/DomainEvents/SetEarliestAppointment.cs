@@ -10,6 +10,6 @@ using System.Threading.Tasks;
 
 namespace MyClinic.Domain.DomainEvents
 {
-    public sealed record SetEarliestAppointment(int DoctorId, int PationId, DateTime date) : IRequest<Result<Appointment>>;
+    public sealed record SetEarliestAppointment(int doctorId, int pationId, DateTime date) : IRequest<Result<Appointment>>;
 
 }
