@@ -12,8 +12,7 @@ namespace MyClinic.Domain.Entities
     /// </summary>
     public class ValidTimeDoctor : Entity
     {
-
-        private readonly List<ValidTime> _validTimes = new();
+        private readonly List<Appointment> _appointment = new();
 
         public ValidTimeDoctor()
         {
@@ -51,8 +50,8 @@ namespace MyClinic.Domain.Entities
         /// تاریخ ویزیت
         /// </summary>
         public DateTime Date { get; set; }
-        public Doctor Doctor { get; set; } 
+        public Doctor Doctor { get; set; }
+        public IReadOnlyCollection<Appointment> Appointment => _appointment;
 
-        public IReadOnlyCollection<ValidTime> ValidTimes => _validTimes;
     }
 }

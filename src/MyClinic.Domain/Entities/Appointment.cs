@@ -27,7 +27,6 @@ namespace MyClinic.Domain.Entities
         /// شناسه بیمار
         /// </summary>
         public int PatientId { get; set; }
-        public IReadOnlyCollection<ValidTimeDoctor> ValidTimeDoctors => _validTimeDoctors;
 
         public static Appointment Create(
             int id,

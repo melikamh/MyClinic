@@ -43,7 +43,7 @@ namespace MyClinic.Domain.Errors
                 "نام خانوادگی وارد شده معتبر نیست.");
         }
 
-        public static class ValidTimeDoctor
+        public static class ReserveTimeDoctor
         {
             public static readonly Func<string, Error> NotFound = date => new Error(
                     "ValidTimeDoctor.NotFound",
