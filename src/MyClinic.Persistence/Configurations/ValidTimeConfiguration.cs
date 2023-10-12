@@ -10,7 +10,7 @@ namespace MyClinic.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<ValidTime> builder)
         {
-            builder.ToTable(TableNames.Patient);
+            builder.ToTable(TableNames.ValidTime);
 
             builder.HasKey(x => x.Id);
 
