@@ -42,5 +42,19 @@ namespace MyClinic.Domain.Errors
                 "LastName.TooLong",
                 "نام خانوادگی وارد شده معتبر نیست.");
         }
+
+        public static class ValidTimeDoctor
+        {
+            public static readonly Func<string, Error> NotFound = date => new Error(
+                    "ValidTimeDoctor.NotFound",
+                    $"پزشک مورد نظر شما در تاریخ {date}  هیچ نوبتی ندارد.");
+        }
+
+        public static class ValidAppointment
+        {
+            public static readonly Func<string, Error> NotFound = date => new Error(
+                    "ValidAppointment.Notallowed",
+                    $"تعداد مجاز نوبت در تاریخ {date} به پایان رسیده است.");
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MyClinic.Domain.Primitives;
+using System.Diagnostics.Metrics;
 
 namespace MyClinic.Domain.Entities
 {
@@ -9,10 +10,10 @@ namespace MyClinic.Domain.Entities
     {
         private readonly List<ValidTimeDoctor> _validTimeDoctors = new();
 
-        private Appointment(int id, ValidTimeDoctor validTimeDoctor, Patient patient) : base(id)
+        private Appointment(int id, int validTimeDoctorId, int patientId) : base(id)
         {
-            ValidTimeDoctorId = validTimeDoctor.Id;
-            PatientID = patient.Id;
+            ValidTimeDoctorId = validTimeDoctorId;
+            PatientID = patientId;
         }
 
         private Appointment()
@@ -28,5 +29,18 @@ namespace MyClinic.Domain.Entities
         public int PatientID { get; set; }
         public IReadOnlyCollection<ValidTimeDoctor> ValidTimeDoctors => _validTimeDoctors;
 
+        public static Appointment Create(
+            int id,
+            int validTimeDoctorId,
+            int patientId
+            )
+        {
+            var member = new Appointment(
+                id,
+                validTimeDoctorId,
+                patientId);
+
+            return member;
+        }
     }
 }

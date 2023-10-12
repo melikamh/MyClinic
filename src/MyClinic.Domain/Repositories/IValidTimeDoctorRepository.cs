@@ -5,7 +5,14 @@ namespace MyClinic.Persistence.Repositories
 {
     public interface IValidTimeDoctorRepository
     {
-        Task<List<ValidTimeDoctor>> DoctorAvailAble(int doctorId, DaysOfWeek Day, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// لیست نوبتهای پزشک در روز
+        /// </summary>
+        /// <param name="doctorId"></param>
+        /// <param name="day"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<List<ValidTimeDoctor>> GetAvailableDoctorByDate(int doctorId, DateTime date, CancellationToken cancellationToken = default);
         void Add(ValidTimeDoctor validTimeDoctor);
     }
 }

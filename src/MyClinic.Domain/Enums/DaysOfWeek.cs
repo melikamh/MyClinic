@@ -13,11 +13,8 @@ namespace MyClinic.Domain.Enums
     /// </summary>
     public enum DaysOfWeek
     {
-        [Display(Name = "شنبه")]
-        Saturday = 1,
-
         [Display(Name = "یکشنبه")]
-        Sunday,
+        Sunday = 0,
 
         [Display(Name = "دوشنبه")]
         Monday,
@@ -32,7 +29,10 @@ namespace MyClinic.Domain.Enums
         Thursday,
 
         [Display(Name = "جمعه")]
-        Friday
+        Friday,
+
+        [Display(Name = "شنبه")]
+        Saturday
 
 
     }

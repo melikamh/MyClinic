@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace MyClinic.Domain.Primitives
         {
         }
 
+        [Key] 
+        [Required] 
         public int Id { get; private init; }
 
         public static bool operator ==(Entity? first, Entity? second) =>
