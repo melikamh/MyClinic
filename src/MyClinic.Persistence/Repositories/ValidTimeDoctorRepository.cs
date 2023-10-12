@@ -11,7 +11,7 @@ using MyClinic.Persistence.Specifications;
 
 namespace MyClinic.Persistence.Repositories;
 
-internal sealed class ValidTimeDoctorRepository : IValidTimeDoctorRepository
+public sealed class ValidTimeDoctorRepository : IValidTimeDoctorRepository
 {
     private readonly MyClinicDbContext _dbContext;
 
@@ -23,8 +23,8 @@ internal sealed class ValidTimeDoctorRepository : IValidTimeDoctorRepository
 
     public async Task<List<ValidTimeDoctor>> GetAvailableDoctorByDate(int doctorId, DateTime date, CancellationToken cancellationToken = default)
     => await ApplySpecification(new GetAvailableDoctorsByDateSpecification(doctorId, date)).ToListAsync(cancellationToken);
-    
-    
+
+
 
     private IQueryable<ValidTimeDoctor> ApplySpecification(
          Specification<ValidTimeDoctor> specification)

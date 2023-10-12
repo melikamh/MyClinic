@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 namespace MyClinic.Persistence.Repositories
 {
 
-    internal sealed class AppointmentRepository : IAppointmentRepository
+    public sealed class AppointmentRepository : IAppointmentRepository
     {
         private readonly MyClinicDbContext _dbContext;
 

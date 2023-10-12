@@ -6,4 +6,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.1.1" />
+    <PackageReference Include="Scrutor" Version="4.2.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyClinic.Application\MyClinic.Application.csproj" />
+    <ProjectReference Include="..\MyClinic.Domain\MyClinic.Domain.csproj" />
+    <ProjectReference Include="..\MyClinic.Infrastructure\MyClinic.Infrastructure.csproj" />
+    <ProjectReference Include="..\MyClinic.Persistence\MyClinic.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>

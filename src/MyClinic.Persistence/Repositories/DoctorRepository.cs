@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MyClinic.Persistence.Repositories;
 
-internal sealed class DoctorRepository : IDoctorRepository
+public sealed class DoctorRepository : IDoctorRepository
 {
     private readonly MyClinicDbContext _dbContext;
 

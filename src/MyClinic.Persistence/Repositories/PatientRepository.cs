@@ -4,7 +4,7 @@ using MyClinic.Domain.Repositories;
 
 namespace MyClinic.Persistence.Repositories;
 
-internal sealed class PatientRepository : IPatientRepository
+public sealed class PatientRepository : IPatientRepository
 {
     private readonly MyClinicDbContext _dbContext;
 
