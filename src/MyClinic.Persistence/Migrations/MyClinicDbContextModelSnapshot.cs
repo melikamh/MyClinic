@@ -118,12 +118,7 @@ namespace MyClinic.Persistence.Migrations
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time");
 
-                    b.Property<int?>("ValidTimeDoctorId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ValidTimeDoctorId");
 
                     b.ToTable("ValidTime", (string)null);
                 });
@@ -135,9 +130,6 @@ namespace MyClinic.Persistence.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("AppointmentId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -156,8 +148,6 @@ namespace MyClinic.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppointmentId");
-
                     b.HasIndex("DoctorId");
 
                     b.ToTable("ValidTimeDoctor", (string)null);
@@ -172,25 +162,14 @@ namespace MyClinic.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("MyClinic.Domain.Entities.ValidTimeDoctor", null)
-                        .WithMany()
+                        .WithMany("Appointment")
                         .HasForeignKey("ValidTimeDoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MyClinic.Domain.Entities.ValidTime", b =>
-                {
-                    b.HasOne("MyClinic.Domain.Entities.ValidTimeDoctor", null)
-                        .WithMany("ValidTimes")
-                        .HasForeignKey("ValidTimeDoctorId");
-                });
-
             modelBuilder.Entity("MyClinic.Domain.Entities.ValidTimeDoctor", b =>
                 {
-                    b.HasOne("MyClinic.Domain.Entities.Appointment", null)
-                        .WithMany("ValidTimeDoctors")
-                        .HasForeignKey("AppointmentId");
-
                     b.HasOne("MyClinic.Domain.Entities.Doctor", "Doctor")
                         .WithMany()
                         .HasForeignKey("DoctorId")
@@ -200,14 +179,9 @@ namespace MyClinic.Persistence.Migrations
                     b.Navigation("Doctor");
                 });
 
-            modelBuilder.Entity("MyClinic.Domain.Entities.Appointment", b =>
-                {
-                    b.Navigation("ValidTimeDoctors");
-                });
-
             modelBuilder.Entity("MyClinic.Domain.Entities.ValidTimeDoctor", b =>
                 {
-                    b.Navigation("ValidTimes");
+                    b.Navigation("Appointment");
                 });
 #pragma warning restore 612, 618
         }

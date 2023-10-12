@@ -19,10 +19,6 @@ namespace MyClinic.Persistence.Configurations
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-               .HasOne<ValidTimeDoctor>()
-               .WithMany()
-               .HasForeignKey(x => x.ValidTimeDoctorId);
         }
     }
 
